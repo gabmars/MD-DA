@@ -163,17 +163,7 @@ length(income)</code></pre>
 <pre class="r"><code>incomep&lt;-regexpr(&quot;\\$[0-9,]+ B&quot;,html)
 incomeAll&lt;-regmatches(html,incomep)
 
-length(incomeAll)</code></pre>
-<pre><code>## [1] 100</code></pre>
-<pre class="r"><code>incomeAll[1]</code></pre>
-<pre><code>## [1] &quot;$72 B&quot;</code></pre>
-<pre class="r"><code>length(incomeAll[incomeAll==&quot;$72 B&quot;])</code></pre>
-<pre><code>## [1] 1</code></pre>
-<pre class="r"><code>incomeAll[incomeAll==&quot;$41 B&quot;] </code></pre>
-<pre><code>## [1] &quot;$41 B&quot;</code></pre>
-<pre class="r"><code>length(incomeAll)-length(unique(incomeAll))</code></pre>
-<pre><code>## [1] 34</code></pre>
-<pre class="r"><code>incomep&lt;-regexpr(&quot;[0-9,]+&quot;,incomeAll);
+incomep&lt;-regexpr(&quot;[0-9,]+&quot;,incomeAll);
 worths&lt;-regmatches(incomeAll,incomep);
 worths&lt;-as.double(gsub(&quot;,&quot;,&quot;.&quot;,worths))*10^9;
 worths</code></pre>
@@ -298,19 +288,27 @@ df</code></pre>
 ## 99   $4,6 B 4.60e+09
 ## 100  $4,6 B 4.60e+09</code></pre>
 <p>Проверьте следующее:</p>
-<pre><code>1) Должно быть ровно сто значений.
-2) Самый большой доход должен быть доход Билла Гейтса
-3) Такой доход должен быть в списке один раз.
-4) В всписке должна быть цифра, которую мы запомнили для Ларри Эллисона.
-5) Должно быть как минимум два значения, встречающихся несколько раз.</code></pre>
+<p>1 Должно быть ровно сто значений.</p>
+<pre class="r"><code>length(incomeAll)</code></pre>
+<pre><code>## [1] 100</code></pre>
+<p>2 Самый большой доход должен быть доход Билла Гейтса</p>
+<pre class="r"><code>incomeAll[1]</code></pre>
+<pre><code>## [1] &quot;$72 B&quot;</code></pre>
+<p>3 Такой доход должен быть в списке один раз.</p>
+<pre class="r"><code>length(incomeAll[incomeAll==&quot;$72 B&quot;])</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>4 В всписке должна быть цифра, которую мы запомнили для Ларри Эллисона.</p>
+<pre class="r"><code>incomeAll[incomeAll==&quot;$41 B&quot;] </code></pre>
+<pre><code>## [1] &quot;$41 B&quot;</code></pre>
+<p>5 Должно быть как минимум два значения, встречающихся несколько раз.</p>
+<pre class="r"><code>length(incomeAll)-length(unique(incomeAll))</code></pre>
+<pre><code>## [1] 34</code></pre>
 <pre class="r"><code>nrow(df)</code></pre>
 <pre><code>## [1] 100</code></pre>
 <pre class="r"><code>richest&lt;-df[df$Worth == max(df$Worth),]
 richest</code></pre>
 <pre><code>##    Name   Worth
 ## 1 $72 B 7.2e+10</code></pre>
-<pre class="r"><code>nrow(richest)</code></pre>
-<pre><code>## [1] 1</code></pre>
 <pre class="r"><code>df[df$Name == &quot;Larry Ellison&quot;,]</code></pre>
 <pre><code>## [1] Name  Worth
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
@@ -332,55 +330,57 @@ richest</code></pre>
 <ol style="list-style-type: decimal">
 <li>В данных доход представлен в формате <strong>“$42 B”</strong>, что означает <strong>42 × 10^9</strong>.</li>
 </ol>
-<pre class="r"><code>worths&lt;-worths * 10 ** 9
-worths</code></pre>
-<pre><code>##   [1] 7.20e+19 5.85e+19 4.10e+19 3.60e+19 3.60e+19 3.54e+19 3.38e+19
-##   [8] 3.35e+19 3.33e+19 3.10e+19 2.85e+19 2.72e+19 2.49e+19 2.44e+19
-##  [15] 2.05e+19 2.05e+19 2.05e+19 2.03e+19 2.00e+19 1.90e+19 1.80e+19
-##  [22] 1.78e+19 1.72e+19 1.63e+19 1.59e+19 1.58e+19 1.40e+19 1.40e+19
-##  [29] 1.35e+19 1.34e+19 1.29e+19 1.25e+19 1.24e+19 1.20e+19 1.17e+19
-##  [36] 1.14e+19 1.14e+19 1.03e+19 1.02e+19 1.00e+19 1.00e+19 9.80e+18
-##  [43] 9.40e+18 9.30e+18 9.00e+18 8.90e+18 8.50e+18 8.50e+18 8.30e+18
-##  [50] 8.30e+18 8.30e+18 8.20e+18 7.90e+18 7.70e+18 7.70e+18 7.60e+18
-##  [57] 7.50e+18 7.20e+18 6.90e+18 6.80e+18 6.70e+18 6.70e+18 6.70e+18
-##  [64] 6.70e+18 6.40e+18 6.40e+18 6.40e+18 6.00e+18 6.00e+18 5.90e+18
-##  [71] 5.80e+18 5.80e+18 5.70e+18 5.60e+18 5.60e+18 5.60e+18 5.50e+18
-##  [78] 5.50e+18 5.50e+18 5.50e+18 5.50e+18 5.50e+18 5.50e+18 5.30e+18
-##  [85] 5.20e+18 5.20e+18 5.20e+18 5.10e+18 5.10e+18 5.00e+18 5.00e+18
-##  [92] 5.00e+18 4.90e+18 4.80e+18 4.70e+18 4.70e+18 4.70e+18 4.60e+18
-##  [99] 4.60e+18 4.60e+18</code></pre>
+<pre class="r"><code>worths</code></pre>
+<pre><code>##   [1] 7.20e+10 5.85e+10 4.10e+10 3.60e+10 3.60e+10 3.54e+10 3.38e+10
+##   [8] 3.35e+10 3.33e+10 3.10e+10 2.85e+10 2.72e+10 2.49e+10 2.44e+10
+##  [15] 2.05e+10 2.05e+10 2.05e+10 2.03e+10 2.00e+10 1.90e+10 1.80e+10
+##  [22] 1.78e+10 1.72e+10 1.63e+10 1.59e+10 1.58e+10 1.40e+10 1.40e+10
+##  [29] 1.35e+10 1.34e+10 1.29e+10 1.25e+10 1.24e+10 1.20e+10 1.17e+10
+##  [36] 1.14e+10 1.14e+10 1.03e+10 1.02e+10 1.00e+10 1.00e+10 9.80e+09
+##  [43] 9.40e+09 9.30e+09 9.00e+09 8.90e+09 8.50e+09 8.50e+09 8.30e+09
+##  [50] 8.30e+09 8.30e+09 8.20e+09 7.90e+09 7.70e+09 7.70e+09 7.60e+09
+##  [57] 7.50e+09 7.20e+09 6.90e+09 6.80e+09 6.70e+09 6.70e+09 6.70e+09
+##  [64] 6.70e+09 6.40e+09 6.40e+09 6.40e+09 6.00e+09 6.00e+09 5.90e+09
+##  [71] 5.80e+09 5.80e+09 5.70e+09 5.60e+09 5.60e+09 5.60e+09 5.50e+09
+##  [78] 5.50e+09 5.50e+09 5.50e+09 5.50e+09 5.50e+09 5.50e+09 5.30e+09
+##  [85] 5.20e+09 5.20e+09 5.20e+09 5.10e+09 5.10e+09 5.00e+09 5.00e+09
+##  [92] 5.00e+09 4.90e+09 4.80e+09 4.70e+09 4.70e+09 4.70e+09 4.60e+09
+##  [99] 4.60e+09 4.60e+09</code></pre>
 <p>Преобразуйте этот формат в числовой и сохраните в вектор <em>worths</em>. Удостоверьтесь в следующем:</p>
-<pre><code>1) _worths_ является вектором и в нём сто занчений типа _double_.
-2) Все элементы вектора _worths_ больше 1 миллиарда.
-3) Самое большое число это доход Билла Гейтса.</code></pre>
+<p>1 worths является вектором и в нём сто занчений типа double.</p>
+<pre class="r"><code>nrow(richest)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>2 Все элементы вектора worths больше 1 миллиарда.</p>
+<pre class="r"><code>worths&lt;-worths * 10 ** 9</code></pre>
+<p>3 Самое большое число это доход Билла Гейтса.</p>
+<pre class="r"><code>max(worths)</code></pre>
+<pre><code>## [1] 7.2e+19</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Используйте вектор <em>worths</em> , чтобы выяснить следующее:</p>
-<ol style="list-style-type: decimal">
-<li>Какова медиана ста этих записей?</li>
-<li>Средний доход?</li>
-<li>Как много людей из этого списка имеют доход больше 5млрд., 10, 25?</li>
-<li>Какой их общий доход?</li>
-<li>Какую долю от общего дохода, составляет пятёрка самых богатых.</li>
-<li>Какую долю от общего дохода, составляют 20 самых богатых.</li>
-<li>В данных <a href="https://www.federalreserve.gov/releases/z1/current/z1.pdf">федерального резерва США</a> найдите показатель дохода всех домохозяйств (Household net worth) в соответвующем году, какую долю общего дохода составляют 100 богатейших людей.</li>
-</ol></li>
+<li>Используйте вектор <em>worths</em> , чтобы выяснить следующее:</li>
 </ol>
+<p>1 Какова медиана ста этих записей?</p>
 <pre class="r"><code>median(worths)</code></pre>
 <pre><code>## [1] 8.3e+18</code></pre>
+<p>2 Средний доход?</p>
 <pre class="r"><code>mean(worths)</code></pre>
 <pre><code>## [1] 1.293e+19</code></pre>
+<p>3 Как много людей из этого списка имеют доход больше 5млрд., 10, 25?</p>
 <pre class="r"><code>sum(worths &gt; 5 * 10 ** 9)</code></pre>
 <pre><code>## [1] 100</code></pre>
 <pre class="r"><code>sum(worths &gt; 10 * 10 ** 9)</code></pre>
 <pre><code>## [1] 100</code></pre>
 <pre class="r"><code>sum(worths &gt; 25 * 10 ** 9)</code></pre>
 <pre><code>## [1] 100</code></pre>
+<p>4 Какой их общий доход?</p>
 <pre class="r"><code>sum(worths)</code></pre>
 <pre><code>## [1] 1.293e+21</code></pre>
+<p>5 Какую долю от общего дохода, составляет пятёрка самых богатых.</p>
 <pre class="r"><code>sum(worths[1:5]) / sum(worths)</code></pre>
 <pre><code>## [1] 0.1883217</code></pre>
+<p>6 Какую долю от общего дохода, составляют 20 самых богатых.</p>
 <pre class="r"><code>sum(worths[1:20]) / sum(worths)</code></pre>
 <pre><code>## [1] 0.4921114</code></pre>
+<p>7 В данных <a href="https://www.federalreserve.gov/releases/z1/current/z1.pdf">федерального резерва США</a> найдите показатель дохода всех домохозяйств (Household net worth) в соответвующем году, какую долю общего дохода составляют 100 богатейших людей.</p>
 <pre class="r"><code>sum(worths) / ( 86287.3 * 10 ** 9)</code></pre>
 <pre><code>## [1] 14984824</code></pre>
 </div>
