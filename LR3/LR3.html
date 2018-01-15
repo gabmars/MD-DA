@@ -132,209 +132,153 @@ $(document).ready(function () {
 </ol></li>
 </ol>
 <pre class="r"><code>html = readLines(&quot;forbes.htm&quot;)</code></pre>
+<pre><code>## Warning in readLines(&quot;forbes.htm&quot;): неполная последняя строка найдена в
+## 'forbes.htm'</code></pre>
 <p>Количество строк</p>
 <pre class="r"><code>length(html)</code></pre>
-<pre><code>## [1] 1991</code></pre>
+<pre><code>## [1] 8824</code></pre>
 <p>Количество символов</p>
 <pre class="r"><code>sum(nchar(html))</code></pre>
-<pre><code>## [1] 80380</code></pre>
+<pre><code>## [1] 773759</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Откройте файл в текстовом редакторе. Найдите строки, содержащие данные о Билле Гейтсе и Ларри Эллисоне и запомните размер их дохода. Билл Гейтс: $72 B Ларри Эллисон: $41 B</li>
 <li>Напишите шаблон регулярного выражения и используйте функцию <code>grep</code>, чтобы извлечь размер дохода из данных в векторе <em>html</em>. Удостоверьтесь, что полученный вектор номеров строк содержит содержит ровно 100 записей и ссылается на номера строк в котрых действительно есть информация о доходе, а не просто первый попавшийся текст.</li>
 </ol>
-<pre class="r"><code>income&lt;-grep(&quot;&lt;td class=\&quot;worth\&quot;&gt;(.*)&lt;/td&gt;&quot;, html, value=TRUE)
-income&lt;-regmatches(income, regexpr(&quot;\\W{1}\\d+\\W{1}\\d*\\s?\\w+&quot;, income))
+<pre class="r"><code>income&lt;-grep(&quot;\\$[0-9,]+ B&quot;,html)
 
-income</code></pre>
-<pre><code>##   [1] &quot;$72 B&quot;   &quot;$58,5 B&quot; &quot;$41 B&quot;   &quot;$36 B&quot;   &quot;$36 B&quot;   &quot;$35,4 B&quot; &quot;$33,8 B&quot;
-##   [8] &quot;$33,5 B&quot; &quot;$33,3 B&quot; &quot;$31 B&quot;   &quot;$28,5 B&quot; &quot;$27,2 B&quot; &quot;$24,9 B&quot; &quot;$24,4 B&quot;
-##  [15] &quot;$20,5 B&quot; &quot;$20,5 B&quot; &quot;$20,5 B&quot; &quot;$20,3 B&quot; &quot;$20 B&quot;   &quot;$19 B&quot;   &quot;$18 B&quot;  
-##  [22] &quot;$17,8 B&quot; &quot;$17,2 B&quot; &quot;$16,3 B&quot; &quot;$15,9 B&quot; &quot;$15,8 B&quot; &quot;$14 B&quot;   &quot;$14 B&quot;  
-##  [29] &quot;$13,5 B&quot; &quot;$13,4 B&quot; &quot;$12,9 B&quot; &quot;$12,5 B&quot; &quot;$12,4 B&quot; &quot;$12 B&quot;   &quot;$11,7 B&quot;
-##  [36] &quot;$11,4 B&quot; &quot;$11,4 B&quot; &quot;$10,3 B&quot; &quot;$10,2 B&quot; &quot;$10 B&quot;   &quot;$10 B&quot;   &quot;$9,8 B&quot; 
-##  [43] &quot;$9,4 B&quot;  &quot;$9,3 B&quot;  &quot;$9 B&quot;    &quot;$8,9 B&quot;  &quot;$8,5 B&quot;  &quot;$8,5 B&quot;  &quot;$8,3 B&quot; 
-##  [50] &quot;$8,3 B&quot;  &quot;$8,3 B&quot;  &quot;$8,2 B&quot;  &quot;$7,9 B&quot;  &quot;$7,7 B&quot;  &quot;$7,7 B&quot;  &quot;$7,6 B&quot; 
-##  [57] &quot;$7,5 B&quot;  &quot;$7,2 B&quot;  &quot;$6,9 B&quot;  &quot;$6,8 B&quot;  &quot;$6,7 B&quot;  &quot;$6,7 B&quot;  &quot;$6,7 B&quot; 
-##  [64] &quot;$6,7 B&quot;  &quot;$6,4 B&quot;  &quot;$6,4 B&quot;  &quot;$6,4 B&quot;  &quot;$6 B&quot;    &quot;$6 B&quot;    &quot;$5,9 B&quot; 
-##  [71] &quot;$5,8 B&quot;  &quot;$5,8 B&quot;  &quot;$5,7 B&quot;  &quot;$5,6 B&quot;  &quot;$5,6 B&quot;  &quot;$5,6 B&quot;  &quot;$5,5 B&quot; 
-##  [78] &quot;$5,5 B&quot;  &quot;$5,5 B&quot;  &quot;$5,5 B&quot;  &quot;$5,5 B&quot;  &quot;$5,5 B&quot;  &quot;$5,5 B&quot;  &quot;$5,3 B&quot; 
-##  [85] &quot;$5,2 B&quot;  &quot;$5,2 B&quot;  &quot;$5,2 B&quot;  &quot;$5,1 B&quot;  &quot;$5,1 B&quot;  &quot;$5 B&quot;    &quot;$5 B&quot;   
-##  [92] &quot;$5 B&quot;    &quot;$4,9 B&quot;  &quot;$4,8 B&quot;  &quot;$4,7 B&quot;  &quot;$4,7 B&quot;  &quot;$4,7 B&quot;  &quot;$4,6 B&quot; 
-##  [99] &quot;$4,6 B&quot;  &quot;$4,6 B&quot;</code></pre>
+length(income)</code></pre>
+<pre><code>## [1] 100</code></pre>
+<pre class="r"><code>income</code></pre>
+<pre><code>##   [1] 2859 2899 2939 2979 3019 3059 3099 3139 3179 3219 3259 3299 3339 3379
+##  [15] 3419 3459 3499 3539 3579 3619 3659 3699 3739 3779 3819 3859 3899 3939
+##  [29] 3979 4019 4059 4099 4139 4179 4219 4259 4299 4339 4379 4419 4459 4499
+##  [43] 4539 4579 4619 4659 4699 4739 4779 4819 4859 4899 4939 4979 5019 5059
+##  [57] 5099 5139 5179 5219 5259 5299 5339 5379 5419 5459 5499 5539 5579 5619
+##  [71] 5659 5699 5739 5779 5819 5859 5899 5939 5979 6019 6059 6099 6139 6179
+##  [85] 6219 6259 6299 6339 6379 6419 6459 6499 6539 6579 6619 6659 6699 6739
+##  [99] 6779 6819</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Напишите код, использовав регулярное выражение из п. 3, и функции <code>regexp</code> и <code>regmatches</code>, чтобы извлечь все данные о доходе.</li>
 </ol>
-<pre class="r"><code>incomeAll&lt;-grep(&quot;&lt;h3&gt;\\w+&quot;, html, value=TRUE, perl = TRUE)
-incomeAll&lt;-incomeAll[3:length(incomeAll)]
-incomeAll&lt;-regmatches(incomeAll, regexpr(&quot;(\\w*.?\\s+\\w*&amp;?\\s?\\w+|-\\w+)+[^&lt;]?&quot;, incomeAll, perl = TRUE))
+<pre class="r"><code>incomep&lt;-regexpr(&quot;\\$[0-9,]+ B&quot;,html)
+incomeAll&lt;-regmatches(html,incomep)
 
-incomeAll</code></pre>
-<pre><code>##   [1] &quot;Bill Gates&quot;                   &quot;Warren Buffett&quot;              
-##   [3] &quot;Larry Ellison&quot;                &quot;Charles Koch&quot;                
-##   [5] &quot;David Koch&quot;                   &quot;Christy Walton &amp; family&quot;     
-##   [7] &quot;Jim Walton&quot;                   &quot;Alice Walton&quot;                
-##   [9] &quot;S. Robson Walton&quot;             &quot;Michael Bloomberg&quot;           
-##  [11] &quot;Sheldon Adelson&quot;              &quot;Jeff Bezos&quot;                  
-##  [13] &quot;Larry Page&quot;                   &quot;Sergey Brin&quot;                 
-##  [15] &quot;Forrest Mars, Jr.&quot;            &quot;Jacqueline Mars&quot;             
-##  [17] &quot;John Mars&quot;                    &quot;Carl Icahn&quot;                  
-##  [19] &quot;George Soros&quot;                 &quot;Mark Zuckerberg&quot;             
-##  [21] &quot;Steve Ballmer&quot;                &quot;Len Blavatnik&quot;               
-##  [23] &quot;Abigail Johnson&quot;              &quot;Phil Knight&quot;                 
-##  [25] &quot;Michael Dell&quot;                 &quot;Paul Allen&quot;                  
-##  [27] &quot;Donald Bren&quot;                  &quot;Ronald Perelman&quot;             
-##  [29] &quot;Anne Cox Chambers&quot;            &quot;Rupert Murdoch &amp; family&quot;     
-##  [31] &quot;Ray Dalio&quot;                    &quot;Charles Ergen&quot;               
-##  [33] &quot;Harold Hamm&quot;                  &quot;James Simons&quot;                
-##  [35] &quot;Laurene Powell Jobs &amp; family&quot; &quot;John Paulson&quot;                
-##  [37] &quot;Jack Taylor &amp; family&quot;         &quot;Philip Anschutz&quot;             
-##  [39] &quot;Richard Kinder&quot;               &quot;George Kaiser&quot;               
-##  [41] &quot;Harold Simmons&quot;               &quot;Andrew Beal&quot;                 
-##  [43] &quot;Steve Cohen&quot;                  &quot;Edward Johnson, III.&quot;        
-##  [45] &quot;Patrick Soon-Shiong&quot;          &quot;Samuel Newhouse, Jr.&quot;        
-##  [47] &quot;Charles Butt &amp; family&quot;        &quot;Pierre Omidyar&quot;              
-##  [49] &quot;Elaine Marshall &amp; family&quot;     &quot;Hank &amp; Doug Meijer&quot;          
-##  [51] &quot;Eric Schmidt&quot;                 &quot;Donald Newhouse&quot;             
-##  [53] &quot;David Tepper&quot;                 &quot;Ralph Lauren&quot;                
-##  [55] &quot;Stephen Schwarzman&quot;           &quot;Leonard Lauder&quot;              
-##  [57] &quot;John Menard, Jr.&quot;             &quot;James Goodnight&quot;             
-##  [59] &quot;Eli Broad&quot;                    &quot;Richard DeVos&quot;               
-##  [61] &quot;Jim Kennedy&quot;                  &quot;John Malone&quot;                 
-##  [63] &quot;Elon Musk&quot;                    &quot;Blair Parry-Okeden&quot;          
-##  [65] &quot;David Duffield&quot;               &quot;Herbert Kohler, Jr. &amp; family&quot;
-##  [67] &quot;Thomas Peterffy&quot;              &quot;S. Truett Cathy&quot;             
-##  [69] &quot;David Geffen&quot;                 &quot;Micky Arison&quot;                
-##  [71] &quot;Sumner Redstone&quot;              &quot;Dennis Washington&quot;           
-##  [73] &quot;Leslie Wexner&quot;                &quot;Ray Lee Hunt&quot;                
-##  [75] &quot;Charles Johnson&quot;              &quot;Richard LeFrak &amp; family&quot;     
-##  [77] &quot;Dannine Avara&quot;                &quot;Scott Duncan&quot;                
-##  [79] &quot;Milane Frantz&quot;                &quot;Jeffery Hildebrand&quot;          
-##  [81] &quot;Rupert Johnson, Jr.&quot;          &quot;Ira Rennert&quot;                 
-##  [83] &quot;Randa Williams&quot;               &quot;Stanley Kroenke&quot;             
-##  [85] &quot;Leon Black&quot;                   &quot;Gayle Cook&quot;                  
-##  [87] &quot;Dustin Moskovitz&quot;             &quot;Patrick McGovern&quot;            
-##  [89] &quot;Charles Schwab&quot;               &quot;Jin Sook &amp; Do Won Chang&quot;     
-##  [91] &quot;Thomas Frist, Jr. &amp; family&quot;   &quot;David Green&quot;                 
-##  [93] &quot;Robert Rowling&quot;               &quot;Stephen Ross&quot;                
-##  [95] &quot;Bruce Kovner&quot;                 &quot;Henry Kravis&quot;                
-##  [97] &quot;Ann Walton Kroenke&quot;           &quot;Gordon Moore&quot;                
-##  [99] &quot;Daniel Ziff&quot;                  &quot;Dirk Ziff&quot;</code></pre>
-<pre class="r"><code>worths&lt;-as.double(gsub(&quot;,&quot;, &quot;.&quot;, regmatches(income, regexpr(&quot;\\d+(\\.|,)?\\d*&quot;, income))))
+worths&lt;-as.double(gsub(&quot;,&quot;, &quot;.&quot;, regmatches(income, regexpr(&quot;\\d+(\\.|,)?\\d*&quot;, income))))
 
 worths</code></pre>
-<pre><code>##   [1] 72.0 58.5 41.0 36.0 36.0 35.4 33.8 33.5 33.3 31.0 28.5 27.2 24.9 24.4
-##  [15] 20.5 20.5 20.5 20.3 20.0 19.0 18.0 17.8 17.2 16.3 15.9 15.8 14.0 14.0
-##  [29] 13.5 13.4 12.9 12.5 12.4 12.0 11.7 11.4 11.4 10.3 10.2 10.0 10.0  9.8
-##  [43]  9.4  9.3  9.0  8.9  8.5  8.5  8.3  8.3  8.3  8.2  7.9  7.7  7.7  7.6
-##  [57]  7.5  7.2  6.9  6.8  6.7  6.7  6.7  6.7  6.4  6.4  6.4  6.0  6.0  5.9
-##  [71]  5.8  5.8  5.7  5.6  5.6  5.6  5.5  5.5  5.5  5.5  5.5  5.5  5.5  5.3
-##  [85]  5.2  5.2  5.2  5.1  5.1  5.0  5.0  5.0  4.9  4.8  4.7  4.7  4.7  4.6
-##  [99]  4.6  4.6</code></pre>
+<pre><code>##   [1] 2859 2899 2939 2979 3019 3059 3099 3139 3179 3219 3259 3299 3339 3379
+##  [15] 3419 3459 3499 3539 3579 3619 3659 3699 3739 3779 3819 3859 3899 3939
+##  [29] 3979 4019 4059 4099 4139 4179 4219 4259 4299 4339 4379 4419 4459 4499
+##  [43] 4539 4579 4619 4659 4699 4739 4779 4819 4859 4899 4939 4979 5019 5059
+##  [57] 5099 5139 5179 5219 5259 5299 5339 5379 5419 5459 5499 5539 5579 5619
+##  [71] 5659 5699 5739 5779 5819 5859 5899 5939 5979 6019 6059 6099 6139 6179
+##  [85] 6219 6259 6299 6339 6379 6419 6459 6499 6539 6579 6619 6659 6699 6739
+##  [99] 6779 6819</code></pre>
 <pre class="r"><code>df&lt;-data.frame(incomeAll, worths)
 names(df)&lt;-c(&quot;Name&quot;, &quot;Worth&quot;)
 
 df</code></pre>
-<pre><code>##                             Name Worth
-## 1                     Bill Gates  72.0
-## 2                 Warren Buffett  58.5
-## 3                  Larry Ellison  41.0
-## 4                   Charles Koch  36.0
-## 5                     David Koch  36.0
-## 6        Christy Walton &amp; family  35.4
-## 7                     Jim Walton  33.8
-## 8                   Alice Walton  33.5
-## 9               S. Robson Walton  33.3
-## 10             Michael Bloomberg  31.0
-## 11               Sheldon Adelson  28.5
-## 12                    Jeff Bezos  27.2
-## 13                    Larry Page  24.9
-## 14                   Sergey Brin  24.4
-## 15             Forrest Mars, Jr.  20.5
-## 16               Jacqueline Mars  20.5
-## 17                     John Mars  20.5
-## 18                    Carl Icahn  20.3
-## 19                  George Soros  20.0
-## 20               Mark Zuckerberg  19.0
-## 21                 Steve Ballmer  18.0
-## 22                 Len Blavatnik  17.8
-## 23               Abigail Johnson  17.2
-## 24                   Phil Knight  16.3
-## 25                  Michael Dell  15.9
-## 26                    Paul Allen  15.8
-## 27                   Donald Bren  14.0
-## 28               Ronald Perelman  14.0
-## 29             Anne Cox Chambers  13.5
-## 30       Rupert Murdoch &amp; family  13.4
-## 31                     Ray Dalio  12.9
-## 32                 Charles Ergen  12.5
-## 33                   Harold Hamm  12.4
-## 34                  James Simons  12.0
-## 35  Laurene Powell Jobs &amp; family  11.7
-## 36                  John Paulson  11.4
-## 37          Jack Taylor &amp; family  11.4
-## 38               Philip Anschutz  10.3
-## 39                Richard Kinder  10.2
-## 40                 George Kaiser  10.0
-## 41                Harold Simmons  10.0
-## 42                   Andrew Beal   9.8
-## 43                   Steve Cohen   9.4
-## 44          Edward Johnson, III.   9.3
-## 45           Patrick Soon-Shiong   9.0
-## 46          Samuel Newhouse, Jr.   8.9
-## 47         Charles Butt &amp; family   8.5
-## 48                Pierre Omidyar   8.5
-## 49      Elaine Marshall &amp; family   8.3
-## 50            Hank &amp; Doug Meijer   8.3
-## 51                  Eric Schmidt   8.3
-## 52               Donald Newhouse   8.2
-## 53                  David Tepper   7.9
-## 54                  Ralph Lauren   7.7
-## 55            Stephen Schwarzman   7.7
-## 56                Leonard Lauder   7.6
-## 57              John Menard, Jr.   7.5
-## 58               James Goodnight   7.2
-## 59                     Eli Broad   6.9
-## 60                 Richard DeVos   6.8
-## 61                   Jim Kennedy   6.7
-## 62                   John Malone   6.7
-## 63                     Elon Musk   6.7
-## 64            Blair Parry-Okeden   6.7
-## 65                David Duffield   6.4
-## 66  Herbert Kohler, Jr. &amp; family   6.4
-## 67               Thomas Peterffy   6.4
-## 68               S. Truett Cathy   6.0
-## 69                  David Geffen   6.0
-## 70                  Micky Arison   5.9
-## 71               Sumner Redstone   5.8
-## 72             Dennis Washington   5.8
-## 73                 Leslie Wexner   5.7
-## 74                  Ray Lee Hunt   5.6
-## 75               Charles Johnson   5.6
-## 76       Richard LeFrak &amp; family   5.6
-## 77                 Dannine Avara   5.5
-## 78                  Scott Duncan   5.5
-## 79                 Milane Frantz   5.5
-## 80            Jeffery Hildebrand   5.5
-## 81           Rupert Johnson, Jr.   5.5
-## 82                   Ira Rennert   5.5
-## 83                Randa Williams   5.5
-## 84               Stanley Kroenke   5.3
-## 85                    Leon Black   5.2
-## 86                    Gayle Cook   5.2
-## 87              Dustin Moskovitz   5.2
-## 88              Patrick McGovern   5.1
-## 89                Charles Schwab   5.1
-## 90       Jin Sook &amp; Do Won Chang   5.0
-## 91    Thomas Frist, Jr. &amp; family   5.0
-## 92                   David Green   5.0
-## 93                Robert Rowling   4.9
-## 94                  Stephen Ross   4.8
-## 95                  Bruce Kovner   4.7
-## 96                  Henry Kravis   4.7
-## 97            Ann Walton Kroenke   4.7
-## 98                  Gordon Moore   4.6
-## 99                   Daniel Ziff   4.6
-## 100                    Dirk Ziff   4.6</code></pre>
+<pre><code>##        Name Worth
+## 1     $72 B  2859
+## 2   $58,5 B  2899
+## 3     $41 B  2939
+## 4     $36 B  2979
+## 5     $36 B  3019
+## 6   $35,4 B  3059
+## 7   $33,8 B  3099
+## 8   $33,5 B  3139
+## 9   $33,3 B  3179
+## 10    $31 B  3219
+## 11  $28,5 B  3259
+## 12  $27,2 B  3299
+## 13  $24,9 B  3339
+## 14  $24,4 B  3379
+## 15  $20,5 B  3419
+## 16  $20,5 B  3459
+## 17  $20,5 B  3499
+## 18  $20,3 B  3539
+## 19    $20 B  3579
+## 20    $19 B  3619
+## 21    $18 B  3659
+## 22  $17,8 B  3699
+## 23  $17,2 B  3739
+## 24  $16,3 B  3779
+## 25  $15,9 B  3819
+## 26  $15,8 B  3859
+## 27    $14 B  3899
+## 28    $14 B  3939
+## 29  $13,5 B  3979
+## 30  $13,4 B  4019
+## 31  $12,9 B  4059
+## 32  $12,5 B  4099
+## 33  $12,4 B  4139
+## 34    $12 B  4179
+## 35  $11,7 B  4219
+## 36  $11,4 B  4259
+## 37  $11,4 B  4299
+## 38  $10,3 B  4339
+## 39  $10,2 B  4379
+## 40    $10 B  4419
+## 41    $10 B  4459
+## 42   $9,8 B  4499
+## 43   $9,4 B  4539
+## 44   $9,3 B  4579
+## 45     $9 B  4619
+## 46   $8,9 B  4659
+## 47   $8,5 B  4699
+## 48   $8,5 B  4739
+## 49   $8,3 B  4779
+## 50   $8,3 B  4819
+## 51   $8,3 B  4859
+## 52   $8,2 B  4899
+## 53   $7,9 B  4939
+## 54   $7,7 B  4979
+## 55   $7,7 B  5019
+## 56   $7,6 B  5059
+## 57   $7,5 B  5099
+## 58   $7,2 B  5139
+## 59   $6,9 B  5179
+## 60   $6,8 B  5219
+## 61   $6,7 B  5259
+## 62   $6,7 B  5299
+## 63   $6,7 B  5339
+## 64   $6,7 B  5379
+## 65   $6,4 B  5419
+## 66   $6,4 B  5459
+## 67   $6,4 B  5499
+## 68     $6 B  5539
+## 69     $6 B  5579
+## 70   $5,9 B  5619
+## 71   $5,8 B  5659
+## 72   $5,8 B  5699
+## 73   $5,7 B  5739
+## 74   $5,6 B  5779
+## 75   $5,6 B  5819
+## 76   $5,6 B  5859
+## 77   $5,5 B  5899
+## 78   $5,5 B  5939
+## 79   $5,5 B  5979
+## 80   $5,5 B  6019
+## 81   $5,5 B  6059
+## 82   $5,5 B  6099
+## 83   $5,5 B  6139
+## 84   $5,3 B  6179
+## 85   $5,2 B  6219
+## 86   $5,2 B  6259
+## 87   $5,2 B  6299
+## 88   $5,1 B  6339
+## 89   $5,1 B  6379
+## 90     $5 B  6419
+## 91     $5 B  6459
+## 92     $5 B  6499
+## 93   $4,9 B  6539
+## 94   $4,8 B  6579
+## 95   $4,7 B  6619
+## 96   $4,7 B  6659
+## 97   $4,7 B  6699
+## 98   $4,6 B  6739
+## 99   $4,6 B  6779
+## 100  $4,6 B  6819</code></pre>
 <p>Проверьте следующее:</p>
 <pre><code>1) Должно быть ровно сто значений.
 2) Самый большой доход должен быть доход Билла Гейтса
@@ -345,25 +289,25 @@ df</code></pre>
 <pre><code>## [1] 100</code></pre>
 <pre class="r"><code>richest&lt;-df[df$Worth == max(df$Worth),]
 richest</code></pre>
-<pre><code>##         Name Worth
-## 1 Bill Gates    72</code></pre>
+<pre><code>##       Name Worth
+## 100 $4,6 B  6819</code></pre>
 <pre class="r"><code>nrow(richest)</code></pre>
 <pre><code>## [1] 1</code></pre>
 <pre class="r"><code>df[df$Name == &quot;Larry Ellison&quot;,]</code></pre>
-<pre><code>##            Name Worth
-## 3 Larry Ellison    41</code></pre>
+<pre><code>## [1] Name  Worth
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 <pre class="r"><code>df[duplicated(df$Worth),][1:10,]</code></pre>
-<pre><code>##                    Name Worth
-## 5            David Koch  36.0
-## 16      Jacqueline Mars  20.5
-## 17            John Mars  20.5
-## 28      Ronald Perelman  14.0
-## 37 Jack Taylor &amp; family  11.4
-## 41       Harold Simmons  10.0
-## 48       Pierre Omidyar   8.5
-## 50   Hank &amp; Doug Meijer   8.3
-## 51         Eric Schmidt   8.3
-## 55   Stephen Schwarzman   7.7</code></pre>
+<pre><code>##      Name Worth
+## NA   &lt;NA&gt;    NA
+## NA.1 &lt;NA&gt;    NA
+## NA.2 &lt;NA&gt;    NA
+## NA.3 &lt;NA&gt;    NA
+## NA.4 &lt;NA&gt;    NA
+## NA.5 &lt;NA&gt;    NA
+## NA.6 &lt;NA&gt;    NA
+## NA.7 &lt;NA&gt;    NA
+## NA.8 &lt;NA&gt;    NA
+## NA.9 &lt;NA&gt;    NA</code></pre>
 </div>
 <div id="-2" class="section level3">
 <h3>Задание 2</h3>
@@ -372,21 +316,21 @@ richest</code></pre>
 </ol>
 <pre class="r"><code>worths&lt;-worths * 10 ** 9
 worths</code></pre>
-<pre><code>##   [1] 7.20e+10 5.85e+10 4.10e+10 3.60e+10 3.60e+10 3.54e+10 3.38e+10
-##   [8] 3.35e+10 3.33e+10 3.10e+10 2.85e+10 2.72e+10 2.49e+10 2.44e+10
-##  [15] 2.05e+10 2.05e+10 2.05e+10 2.03e+10 2.00e+10 1.90e+10 1.80e+10
-##  [22] 1.78e+10 1.72e+10 1.63e+10 1.59e+10 1.58e+10 1.40e+10 1.40e+10
-##  [29] 1.35e+10 1.34e+10 1.29e+10 1.25e+10 1.24e+10 1.20e+10 1.17e+10
-##  [36] 1.14e+10 1.14e+10 1.03e+10 1.02e+10 1.00e+10 1.00e+10 9.80e+09
-##  [43] 9.40e+09 9.30e+09 9.00e+09 8.90e+09 8.50e+09 8.50e+09 8.30e+09
-##  [50] 8.30e+09 8.30e+09 8.20e+09 7.90e+09 7.70e+09 7.70e+09 7.60e+09
-##  [57] 7.50e+09 7.20e+09 6.90e+09 6.80e+09 6.70e+09 6.70e+09 6.70e+09
-##  [64] 6.70e+09 6.40e+09 6.40e+09 6.40e+09 6.00e+09 6.00e+09 5.90e+09
-##  [71] 5.80e+09 5.80e+09 5.70e+09 5.60e+09 5.60e+09 5.60e+09 5.50e+09
-##  [78] 5.50e+09 5.50e+09 5.50e+09 5.50e+09 5.50e+09 5.50e+09 5.30e+09
-##  [85] 5.20e+09 5.20e+09 5.20e+09 5.10e+09 5.10e+09 5.00e+09 5.00e+09
-##  [92] 5.00e+09 4.90e+09 4.80e+09 4.70e+09 4.70e+09 4.70e+09 4.60e+09
-##  [99] 4.60e+09 4.60e+09</code></pre>
+<pre><code>##   [1] 2.859e+12 2.899e+12 2.939e+12 2.979e+12 3.019e+12 3.059e+12 3.099e+12
+##   [8] 3.139e+12 3.179e+12 3.219e+12 3.259e+12 3.299e+12 3.339e+12 3.379e+12
+##  [15] 3.419e+12 3.459e+12 3.499e+12 3.539e+12 3.579e+12 3.619e+12 3.659e+12
+##  [22] 3.699e+12 3.739e+12 3.779e+12 3.819e+12 3.859e+12 3.899e+12 3.939e+12
+##  [29] 3.979e+12 4.019e+12 4.059e+12 4.099e+12 4.139e+12 4.179e+12 4.219e+12
+##  [36] 4.259e+12 4.299e+12 4.339e+12 4.379e+12 4.419e+12 4.459e+12 4.499e+12
+##  [43] 4.539e+12 4.579e+12 4.619e+12 4.659e+12 4.699e+12 4.739e+12 4.779e+12
+##  [50] 4.819e+12 4.859e+12 4.899e+12 4.939e+12 4.979e+12 5.019e+12 5.059e+12
+##  [57] 5.099e+12 5.139e+12 5.179e+12 5.219e+12 5.259e+12 5.299e+12 5.339e+12
+##  [64] 5.379e+12 5.419e+12 5.459e+12 5.499e+12 5.539e+12 5.579e+12 5.619e+12
+##  [71] 5.659e+12 5.699e+12 5.739e+12 5.779e+12 5.819e+12 5.859e+12 5.899e+12
+##  [78] 5.939e+12 5.979e+12 6.019e+12 6.059e+12 6.099e+12 6.139e+12 6.179e+12
+##  [85] 6.219e+12 6.259e+12 6.299e+12 6.339e+12 6.379e+12 6.419e+12 6.459e+12
+##  [92] 6.499e+12 6.539e+12 6.579e+12 6.619e+12 6.659e+12 6.699e+12 6.739e+12
+##  [99] 6.779e+12 6.819e+12</code></pre>
 <p>Преобразуйте этот формат в числовой и сохраните в вектор <em>worths</em>. Удостоверьтесь в следующем:</p>
 <pre><code>1) _worths_ является вектором и в нём сто занчений типа _double_.
 2) Все элементы вектора _worths_ больше 1 миллиарда.
@@ -404,23 +348,23 @@ worths</code></pre>
 </ol></li>
 </ol>
 <pre class="r"><code>median(worths)</code></pre>
-<pre><code>## [1] 8.3e+09</code></pre>
+<pre><code>## [1] 4.839e+12</code></pre>
 <pre class="r"><code>mean(worths)</code></pre>
-<pre><code>## [1] 1.293e+10</code></pre>
+<pre><code>## [1] 4.839e+12</code></pre>
 <pre class="r"><code>sum(worths &gt; 5 * 10 ** 9)</code></pre>
-<pre><code>## [1] 89</code></pre>
+<pre><code>## [1] 100</code></pre>
 <pre class="r"><code>sum(worths &gt; 10 * 10 ** 9)</code></pre>
-<pre><code>## [1] 39</code></pre>
+<pre><code>## [1] 100</code></pre>
 <pre class="r"><code>sum(worths &gt; 25 * 10 ** 9)</code></pre>
-<pre><code>## [1] 12</code></pre>
+<pre><code>## [1] 100</code></pre>
 <pre class="r"><code>sum(worths)</code></pre>
-<pre><code>## [1] 1.293e+12</code></pre>
+<pre><code>## [1] 4.839e+14</code></pre>
 <pre class="r"><code>sum(worths[1:5]) / sum(worths)</code></pre>
-<pre><code>## [1] 0.1883217</code></pre>
+<pre><code>## [1] 0.03036784</code></pre>
 <pre class="r"><code>sum(worths[1:20]) / sum(worths)</code></pre>
-<pre><code>## [1] 0.4921114</code></pre>
+<pre><code>## [1] 0.1338706</code></pre>
 <pre class="r"><code>sum(worths) / (96196 * 10 ** 9)</code></pre>
-<pre><code>## [1] 0.01344131</code></pre>
+<pre><code>## [1] 5.030355</code></pre>
 </div>
 
 
