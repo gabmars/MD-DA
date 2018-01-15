@@ -37,8 +37,19 @@ income
 incomep<-regexpr("\\$[0-9,]+ B",html)
 incomeAll<-regmatches(html,incomep)
 
-worths<-as.double(gsub(",", ".", regmatches(income, regexpr("\\d+(\\.|,)?\\d*", income))))
+length(incomeAll)
 
+incomeAll[1]
+
+length(incomeAll[incomeAll=="$72 B"])
+
+incomeAll[incomeAll=="$41 B"] 
+
+length(incomeAll)-length(unique(incomeAll))
+
+incomep<-regexpr("[0-9,]+",incomeAll);
+worths<-regmatches(incomeAll,incomep);
+worths<-as.double(gsub(",",".",worths))*10^9;
 worths
 df<-data.frame(incomeAll, worths)
 names(df)<-c("Name", "Worth")
@@ -92,6 +103,6 @@ sum(worths > 25 * 10 ** 9)
 sum(worths)
 sum(worths[1:5]) / sum(worths)
 sum(worths[1:20]) / sum(worths)
-sum(worths) / (96196 * 10 ** 9)
+sum(worths) / ( 86287.3 * 10 ** 9)
 
 ```
